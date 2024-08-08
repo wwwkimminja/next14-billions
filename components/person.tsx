@@ -1,7 +1,8 @@
+"use client"
 import React from 'react'
 import styles from '../styles/person.module.css'
 import Link from 'next/link'
-import Placeholder from '../asset/placeholder.svg'
+import { useRouter } from 'next/navigation'
 
 
 type Billionaire = {
@@ -12,9 +13,13 @@ type Billionaire = {
   industries: string[]
 }
 function Person({id,name,squareImage,netWorth,industries}:Billionaire) {
+  const router = useRouter();
+  const onClick = () => {
+    router.push(`/person/${id}`);
+  };
   return (
     <li className={styles.wrapper}>
-     <img className={styles.image} src={squareImage}/>
+     <img className={styles.image} src={squareImage} onClick={onClick} alt={`${name}'s image`}/>
       <Link  href={`/person/${id}`}>
       <div className={styles.name}>{name}</div>
       <span>{Math.round(netWorth/1000)} Billion / </span>
